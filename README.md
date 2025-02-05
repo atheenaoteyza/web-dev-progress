@@ -1,7 +1,6 @@
 # Progress Tracking Dashboard
 
-A **game-like progress tracking system** for web development skills, where each skill earns points as you code. Gain XP, level up, and allocate skill points to **Frontend, Backend, DevOps, Problem Solving, and Tooling**.
-
+A **game-like progress tracking system** for web development skills, where each skill earns points as you code. Allocate skill points to **Frontend, Backend, DevOps, Problem Solving, and Tooling**, Gain XP, and level up.
 ## 🚀 Features
 
 - 📊 **Skill Tracking:** Monitor progress in Frontend, Backend, DevOps, Problem-Solving, and Tooling.
