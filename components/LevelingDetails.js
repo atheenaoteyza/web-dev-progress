@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+//import Image from "next/image";
 export default function LevelingDetails() {
   return (
     <div className="p-6 rounded-lg shadow-md bg-red-200/10 border-y border-white/4">

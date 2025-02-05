@@ -4,7 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import LevelInfo from "@/components/level-info";
-import LevelingDetails from "@/components/LevelingDetails";
+//import LevelingDetails from "@/components/LevelingDetails";
 import WaterMark from "@/components/watermark";
 export default function ProgressDashboard() {
   const [xp, setXp] = useState(0);
