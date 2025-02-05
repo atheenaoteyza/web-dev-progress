@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Progress Tracking Dashboard
 
-## Getting Started
+A **game-like progress tracking system** for web development skills, where each skill earns points as you code. Gain XP, level up, and allocate skill points to **Frontend, Backend, DevOps, Problem Solving, and Tooling**.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 📊 **Skill Tracking:** Monitor progress in Frontend, Backend, DevOps, Problem-Solving, and Tooling.
+- 🔢 **XP System:** Gain XP by improving sub-skills and level up as you progress.
+- 🎯 **Level System:** Ranges from Novice to Grandmaster based on XP milestones.
+- 📈 **Progress Bar:** Visualizes the experience points needed for the next level.
+- 💾 **Local Storage Persistence:** Saves user progress across sessions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js** - Framework for React applications
+- **Tailwind CSS** - Styling for UI components
+- **React State Management** - useState and useEffect for handling XP and skill data
+- **LocalStorage** - Persistent data storage for user progress
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Installation
 
-## Learn More
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/progress-dashboard.git
+   cd progress-dashboard
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+3. Run the development server:
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+4. Open `http://localhost:3000` in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## 🏆 Leveling System
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Level Range | Title        |
+| ----------- | ------------ |
+| 1 - 5       | Novice       |
+| 6 - 10      | Apprentice   |
+| 11 - 20     | Beginner     |
+| 21 - 40     | Intermediate |
+| 41 - 60     | Advanced     |
+| 61 - 80     | Expert       |
+| 81 - 100    | Master       |
+| 101+        | Grandmaster  |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 How It Works
 
-## Deploy on Vercel
+1. Each skill has sub-skills with individual progress bars.
+2. Clicking `+` increases XP and levels up sub-skills when XP reaches 100.
+3. Level-ups automatically update the main progress bars.
+4. Data is stored locally using `localStorage`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 To-Do List
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Add Firebase for cloud-based progress tracking
+- [ ] Implement authentication for multi-user support
+- [ ] Introduce achievements and badges system
+
+## 🤝 Contributing
+
+Pull requests are welcome! If you find any bugs or have feature suggestions, feel free to open an issue.
+
+## 📜 License
+
+This project is licensed under the MIT License.
