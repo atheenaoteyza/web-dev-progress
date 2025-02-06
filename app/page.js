@@ -11,6 +11,10 @@ export default function ProgressDashboard() {
   const [level, setLevel] = useState(21);
   const xpToNextLevel = level * 100;
   const progressPercent = (xp / xpToNextLevel) * 100;
+  const [skillPoints, setSkillPoints] = useState(5);
+  const [hours, setHours] = useState(0);
+  const [millisecondsElapsed, setMillisecondsElapsed] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
   //Backend (APIs, Databases, Auth, Firebase, Node.js)
   //DevOps (AWS, Docker, CI/CD)
@@ -82,41 +86,73 @@ export default function ProgressDashboard() {
   }, [xp, level, skills]);
 
   const improveSubSkill = (category, subSkillIndex) => {
-    setSkills((prevSkills) => {
-      const newSkills = { ...prevSkills };
-      const subSkills = newSkills[category].subSkills;
-      if (subSkills) {
-        // Increase the subskill points by 5
-        subSkills[subSkillIndex].value += 5;
+    if (skillPoints > 0) {
+      setSkills((prevSkills) => {
+        const newSkills = { ...prevSkills };
+        const subSkills = newSkills[category].subSkills;
+        if (subSkills) {
+          // Increase the subskill points by 5
+          subSkills[subSkillIndex].value += 1;
+          setSkillPoints(skillPoints - 1);
 
-        // Check if subskill reached 100 points and level up
-        if (subSkills[subSkillIndex].value >= 100) {
-          subSkills[subSkillIndex].level += 1; // Level up the subskill
-          subSkills[subSkillIndex].value = 0; // Reset points to 0
+          // Check if subskill reached 100 points and level up
+          if (subSkills[subSkillIndex].value >= 100) {
+            subSkills[subSkillIndex].level += 1; // Level up the subskill
+            subSkills[subSkillIndex].value = 0; // Reset points to 0
+            alert("ACHIEVEMENT UNLOCKED!");
+            alert(
+              ` ${subSkills[subSkillIndex].name} skill has reached level ${subSkills[subSkillIndex].level}`
+            );
+          }
+
+          // Recalculate the overall category progress based on the average level of subskills
+          const averageLevel =
+            subSkills.reduce((total, sub) => total + sub.level, 0) /
+            subSkills.length;
+
+          newSkills[category].progress = (averageLevel / 100) * 100; // Max level assumed to be 10
         }
+        return newSkills;
+      });
 
-        // Recalculate the overall category progress based on the average level of subskills
-        const averageLevel =
-          subSkills.reduce((total, sub) => total + sub.level, 0) /
-          subSkills.length;
-
-        newSkills[category].progress = (averageLevel / 100) * 100; // Max level assumed to be 10
-      }
-      return newSkills;
-    });
-
-    // Increase XP based on subskill improvement
-    const xpGained = 5; // XP per subskill improvement
-    setXp((prevXp) => {
-      const newXp = prevXp + xpGained;
-      if (newXp >= xpToNextLevel) {
-        setLevel((prevLevel) => prevLevel + 1);
-        return newXp - xpToNextLevel; // Carry over extra XP after leveling up
-      }
-      return newXp;
-    });
+      // Increase XP based on subskill improvement
+      const xpGained = 10; // XP per subskill improvement
+      setXp((prevXp) => {
+        const newXp = prevXp + xpGained;
+        if (newXp >= xpToNextLevel) {
+          setLevel((prevLevel) => prevLevel + 1);
+          return newXp - xpToNextLevel; // Carry over extra XP after leveling up
+        }
+        return newXp;
+      });
+    }
   };
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => {
+        setMillisecondsElapsed((prev) => prev + 10);
+      }, 10);
+    } else {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [isRunning]);
 
+  useEffect(() => {
+    if (millisecondsElapsed >= 3600000) {
+      setHours((prev) => (prev ? parseFloat(prev) + 1 : 1));
+      setMillisecondsElapsed(0);
+      console.log("skill point + 10");
+    }
+  }, [millisecondsElapsed]);
+
+  const handleHoursSpent = () => {
+    if (hours) {
+      setSkillPoints((prev) => prev + hours * 10);
+      setHours(0);
+    }
+  };
   return (
     <>
       <div className=" p-6 space-y-6 bg-transparent ">
@@ -129,6 +165,56 @@ export default function ProgressDashboard() {
               XP: {xp} / {xpToNextLevel}
             </p>
             <Progress value={progressPercent} className="h-3 my-3" />
+            <p className="text-sm font-lg text-[#66d9c1] p-3">
+              Skill Points: {skillPoints}
+            </p>
+            <p className="text-[#58a6d3] text-sm">
+              Note: For every hour spent, you will gain 10 skill points.
+            </p>
+            <input
+              type="number"
+              placeholder="Enter hours spent"
+              value={hours}
+              onChange={(e) => setHours(e.target.value)}
+              className="border border-gray-300 rounded px-3 py-1 w-28 text-center mr-5 mt-2"
+            ></input>
+            <Button onClick={handleHoursSpent}>Submit hours spent</Button>
+            {/* Stopwatch */}
+            <div className="mt-4 text-center">
+              <p className="text-lg font-semibold text-[#4df582]">
+                Stopwatch:{" "}
+                {Math.floor(millisecondsElapsed / 60000)
+                  .toString()
+                  .padStart(2, "0")}
+                :
+                {(Math.floor(millisecondsElapsed / 1000) % 60)
+                  .toString()
+                  .padStart(2, "0")}
+                :
+                {Math.floor((millisecondsElapsed % 1000) / 10)
+                  .toString()
+                  .padStart(2, "0")}
+              </p>
+              <div className="flex justify-center gap-2 mt-2">
+                <Button onClick={() => setIsRunning(true)} disabled={isRunning}>
+                  Start
+                </Button>
+                <Button
+                  onClick={() => setIsRunning(false)}
+                  disabled={!isRunning}
+                >
+                  Stop
+                </Button>
+                <Button
+                  onClick={() => {
+                    setMillisecondsElapsed(0);
+                    setIsRunning(false);
+                  }}
+                >
+                  Reset
+                </Button>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
