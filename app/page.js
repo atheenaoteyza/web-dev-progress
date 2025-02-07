@@ -11,9 +11,9 @@ export default function ProgressDashboard() {
   const [level, setLevel] = useState(21);
   const xpToNextLevel = level * 100;
   const progressPercent = (xp / xpToNextLevel) * 100;
-  const [skillPoints, setSkillPoints] = useState(5);
+  const [skillPoints, setSkillPoints] = useState(0);
   const [hours, setHours] = useState(0);
-  const [millisecondsElapsed, setMillisecondsElapsed] = useState(3599000);
+  const [millisecondsElapsed, setMillisecondsElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
   //Backend (APIs, Databases, Auth, Firebase, Node.js)
