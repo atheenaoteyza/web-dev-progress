@@ -13,7 +13,7 @@ export default function ProgressDashboard() {
   const progressPercent = (xp / xpToNextLevel) * 100;
   const [skillPoints, setSkillPoints] = useState(5);
   const [hours, setHours] = useState(0);
-  const [millisecondsElapsed, setMillisecondsElapsed] = useState(0);
+  const [millisecondsElapsed, setMillisecondsElapsed] = useState(3599000);
   const [isRunning, setIsRunning] = useState(false);
 
   //Backend (APIs, Databases, Auth, Firebase, Node.js)
@@ -128,22 +128,33 @@ export default function ProgressDashboard() {
     }
   };
   useEffect(() => {
-    let timer;
+    let animationFrameId;
+    let startTime = performance.now() - millisecondsElapsed;
+
+    const updateElapsedTime = () => {
+      if (isRunning) {
+        const currentTime = performance.now();
+        setMillisecondsElapsed(currentTime - startTime);
+        animationFrameId = requestAnimationFrame(updateElapsedTime);
+      }
+    };
+
     if (isRunning) {
-      timer = setInterval(() => {
-        setMillisecondsElapsed((prev) => prev + 10);
-      }, 10);
-    } else {
-      clearInterval(timer);
+      startTime = performance.now() - millisecondsElapsed;
+      animationFrameId = requestAnimationFrame(updateElapsedTime);
     }
-    return () => clearInterval(timer);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [isRunning]);
 
   useEffect(() => {
     if (millisecondsElapsed >= 3600000) {
       setHours((prev) => (prev ? parseFloat(prev) + 1 : 1));
-      setMillisecondsElapsed(0);
-      console.log("skill point + 10");
+      setMillisecondsElapsed((prev) => prev - 3600000); // Correctly adjust time
+
+      // Ensure the effect only runs once per hour
+      setIsRunning(false); // Pause to prevent infinite loop
+      setTimeout(() => setIsRunning(true), 100); // Restart after a short delay
     }
   }, [millisecondsElapsed]);
 
