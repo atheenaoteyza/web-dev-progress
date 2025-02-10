@@ -68,22 +68,29 @@ export default function ProgressDashboard() {
     },
   });
 
-  // Load progress from localStorage when the component mounts
+  /// Load progress from localStorage when the component mounts
   useEffect(() => {
     const savedProgress = localStorage.getItem("progressData");
+    const savedTime = localStorage.getItem("stopwatchTime");
+
     if (savedProgress) {
       const parsedData = JSON.parse(savedProgress);
       setXp(parsedData.xp);
       setLevel(parsedData.level);
       setSkills(parsedData.skills);
     }
+
+    if (savedTime) {
+      setMillisecondsElapsed(parseInt(savedTime, 10));
+    }
   }, []);
 
-  // Save progress to localStorage whenever xp, level, or skills change
+  // Save progress and stopwatch time to localStorage
   useEffect(() => {
     const progressData = { xp, level, skills };
     localStorage.setItem("progressData", JSON.stringify(progressData));
-  }, [xp, level, skills]);
+    localStorage.setItem("stopwatchTime", millisecondsElapsed.toString());
+  }, [xp, level, skills, millisecondsElapsed]);
 
   const improveSubSkill = (category, subSkillIndex) => {
     if (skillPoints > 0) {
