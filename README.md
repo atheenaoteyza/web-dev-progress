@@ -1,4 +1,4 @@
-<img width="1695" alt="image" src="https://github.com/user-attachments/assets/f9c316fb-d320-4e4f-a293-b947f6b05fb7" /># 🚀 Gamified Developer Skill Tracker
+# 🚀 Gamified Developer Skill Tracker
 
 A **game-like progress tracking system** for web development skills. Gain XP and level up as you code! Track progress in **Frontend, Backend, DevOps, Problem Solving, and Tooling** with a visual dashboard.
 
