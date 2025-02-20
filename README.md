@@ -1,27 +1,37 @@
-# Progress Tracking Dashboard
+<img width="1695" alt="image" src="https://github.com/user-attachments/assets/f9c316fb-d320-4e4f-a293-b947f6b05fb7" /># 🚀 Gamified Developer Skill Tracker
 
-A **game-like progress tracking system** for web development skills, where each skill earns points as you code. Allocate skill points to **Frontend, Backend, DevOps, Problem Solving, and Tooling**, Gain XP, and level up.
-## 🚀 Features
+A **game-like progress tracking system** for web development skills. Gain XP and level up as you code! Track progress in **Frontend, Backend, DevOps, Problem Solving, and Tooling** with a visual dashboard.
 
-- 📊 **Skill Tracking:** Monitor progress in Frontend, Backend, DevOps, Problem-Solving, and Tooling.
-- 🔢 **XP System:** Gain XP by improving sub-skills and level up as you progress.
-- 🎯 **Level System:** Ranges from Novice to Grandmaster based on XP milestones.
-- 📈 **Progress Bar:** Visualizes the experience points needed for the next level.
-- 💾 **Local Storage Persistence:** Saves user progress across sessions.
+<img width="1695" alt="image" src="https://github.com/user-attachments/assets/c9cd5dbe-786d-48c7-9f69-ef4a9326d373" />
+
+
+---
+
+## 🌟 Features
+
+✅ **XP & Leveling System** – Earn XP in specific skills as you progress.  
+✅ **Skill Allocation** – Distribute XP across Frontend, Backend, DevOps, and more.  
+✅ **Progress Visualization** – See your growth with dynamic bars and levels.  
+✅ **Persistent Data Storage** – Saves progress using `localStorage`.  
+✅ **Next.js + Tailwind CSS** – Built with modern web technologies.  
+
+---
 
 ## 🛠 Tech Stack
 
-- **Next.js** - Framework for React applications
-- **Tailwind CSS** - Styling for UI components
-- **React State Management** - useState and useEffect for handling XP and skill data
-- **LocalStorage** - Persistent data storage for user progress
+- **Next.js** – Framework for React applications  
+- **Tailwind CSS** – Styling for UI components  
+- **React State Management** – useState & useEffect for handling XP & skills  
+- **LocalStorage** – Data persistence across sessions  
+
+---
 
 ## 📦 Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/progress-dashboard.git
-   cd progress-dashboard
+   git clone https://github.com/yourusername/web-dev-progress.git
+   cd dev-skill-tracker
    ```
 2. Install dependencies:
    ```sh
@@ -37,6 +47,8 @@ A **game-like progress tracking system** for web development skills, where each 
    ```
 4. Open `http://localhost:3000` in your browser.
 
+---
+
 ## 🏆 Leveling System
 
 | Level Range | Title        |
@@ -50,23 +62,53 @@ A **game-like progress tracking system** for web development skills, where each 
 | 81 - 100    | Master       |
 | 101+        | Grandmaster  |
 
-## 📌 How It Works
+---
 
-1. Each skill has sub-skills with individual progress bars.
-2. Clicking `+` increases XP and levels up sub-skills when XP reaches 100.
-3. Level-ups automatically update the main progress bars.
-4. Data is stored locally using `localStorage`.
+## 📌 Future Enhancements
 
-## 📜 To-Do List
+- 🔥 **Cloud Storage** – Move from `localStorage` to Firebase.  
+- 🔐 **User Authentication** – Enable multi-user support.  
+- 🏅 **Achievements & Badges** – Unlockable milestones.  
+- 📊 **Leaderboard** – Compete with others for skill mastery.  
 
-- [ ] Add Firebase for cloud-based progress tracking
-- [ ] Implement authentication for multi-user support
-- [ ] Introduce achievements and badges system
+---
+
+## 🎮 How It Works
+
+1. Each skill (Frontend, Backend, etc.) has a **progress bar**.  
+2. Clicking `+` increases XP, leveling up skills over time.  
+3. Level-ups update the main progress bars dynamically.  
+4. Data is stored locally so your progress is **never lost**.  
+
+---
+
+## 🚀 Live Demo
+[Click here to try it!](https://web-dev-progress.vercel.app/)
+
+---
 
 ## 🤝 Contributing
 
-Pull requests are welcome! If you find any bugs or have feature suggestions, feel free to open an issue.
+Pull requests are welcome! If you find any bugs or have feature suggestions, feel free to **open an issue**.
+
+1. Fork the repository.
+2. Create a new branch (`feature/your-feature`).
+3. Commit changes and push to your branch.
+4. Open a Pull Request.
+
+---
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
+
+---
+
+## 📢 Spread the Word!
+
+⭐ **Star this repo** if you find it useful!  
+
+---
+
+🚀 **Happy coding and keep leveling up!** 🚀
+
