@@ -4,8 +4,55 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import LevelInfo from "@/components/level-info";
-//import LevelingDetails from "@/components/LevelingDetails";
 import WaterMark from "@/components/watermark";
+
+const defaultSkills = {
+  Frontend: {
+    progress: 15.8,
+    subSkills: [
+      { name: "React", value: 10, level: 21 },
+      { name: "Next.js", value: 10, level: 15 },
+      { name: "JS", value: 10, level: 21 },
+      { name: "HTML", value: 10, level: 21 },
+      { name: "CSS", value: 10, level: 21 },
+      { name: "Tailwind CSS", value: 10, level: 10 },
+      { name: "TS", value: 10, level: 1 },
+    ],
+  },
+  Backend: {
+    progress: 0,
+    subSkills: [
+      { name: "Firebase", value: 20, level: 1 },
+      { name: "Auth", value: 20, level: 1 },
+      { name: "Databases", value: 20, level: 1 },
+      { name: "Node JS", value: 20, level: 1 },
+    ],
+  },
+  DevOps: {
+    progress: 0,
+    subSkills: [
+      { name: "Docker", value: 10, level: 2 },
+      { name: "AWS", value: 20, level: 1 },
+      { name: "CI/CO", value: 20, level: 1 },
+    ],
+  },
+  ProblemSolving: {
+    progress: 0,
+    subSkills: [
+      { name: "Algorithms", value: 15, level: 1 },
+      { name: "DSA", value: 15, level: 1 },
+    ],
+  },
+  Tooling: {
+    progress: 0,
+    subSkills: [
+      { name: "Git", value: 10, level: 1 },
+      { name: "Testing", value: 10, level: 1 },
+      { name: "Debugging", value: 10, level: 1 },
+    ],
+  },
+};
+
 export default function ProgressDashboard() {
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(21);
@@ -15,82 +62,59 @@ export default function ProgressDashboard() {
   const [hours, setHours] = useState(0);
   const [millisecondsElapsed, setMillisecondsElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [skills, setSkills] = useState(defaultSkills);
 
-  //Backend (APIs, Databases, Auth, Firebase, Node.js)
-  //DevOps (AWS, Docker, CI/CD)
-  //Problem Solving (DSA, Algorithms)
-  //Tooling (Git, Testing, Debugging)
-
-  const [skills, setSkills] = useState({
-    Frontend: {
-      progress: 15.8,
-      subSkills: [
-        { name: "React", value: 10, level: 21 },
-        { name: "Next.js", value: 10, level: 15 },
-        { name: "JS", value: 10, level: 21 },
-        { name: "HTML", value: 10, level: 21 },
-        { name: "CSS", value: 10, level: 21 },
-        { name: "Tailwind CSS", value: 10, level: 10 },
-        { name: "TS", value: 10, level: 1 },
-      ],
-    },
-    Backend: {
-      progress: 0,
-      subSkills: [
-        { name: "Firebase", value: 20, level: 1 },
-        { name: "Auth", value: 20, level: 1 },
-        { name: "Databases", value: 20, level: 1 },
-        { name: "Node JS", value: 20, level: 1 },
-      ],
-    },
-    DevOps: {
-      progress: 0,
-      subSkills: [
-        { name: "Docker", value: 10, level: 2 },
-        { name: "AWS", value: 20, level: 1 },
-        { name: "CI/CO", value: 20, level: 1 },
-      ],
-    },
-    ProblemSolving: {
-      progress: 0,
-      subSkills: [
-        { name: "Algorithms", value: 15, level: 1 },
-        { name: "DSA", value: 15, level: 1 },
-      ],
-    },
-    Tooling: {
-      progress: 0,
-      subSkills: [
-        { name: "Git", value: 10, level: 1 },
-        { name: "Testing", value: 10, level: 1 },
-        { name: "Debugging", value: 10, level: 1 },
-      ],
-    },
-  });
-
-  /// Load progress from localStorage when the component mounts
+  // Load progress from localStorage when the component mounts
   useEffect(() => {
-    const savedProgress = localStorage.getItem("progressData");
-    const savedTime = localStorage.getItem("stopwatchTime");
+    try {
+      const savedProgress = localStorage.getItem("progressData");
+      const savedTime = localStorage.getItem("stopwatchTime");
 
-    if (savedProgress) {
-      const parsedData = JSON.parse(savedProgress);
-      setXp(parsedData.xp);
-      setLevel(parsedData.level);
-      setSkills(parsedData.skills);
-    }
+      if (savedProgress) {
+        const parsedData = JSON.parse(savedProgress);
+        setXp(parsedData.xp || 0);
+        setLevel(parsedData.level || 1);
+        setSkills(parsedData.skills || defaultSkills);
+        setHours(parsedData.hours || 0);
+        setSkillPoints(parsedData.skillPoints || 0);
+      }
 
-    if (savedTime) {
-      setMillisecondsElapsed(parseInt(savedTime, 10));
+      if (savedTime) {
+        setMillisecondsElapsed(parseInt(savedTime, 10) || 0);
+      }
+    } catch (error) {
+      console.error("Error loading data from localStorage:", error);
+      // Reset to default values
+      setXp(0);
+      setLevel(1);
+      setSkills(defaultSkills);
+      setMillisecondsElapsed(0);
+      setHours(0);
+      setSkillPoints(0);
     }
   }, []);
 
-  // Save progress and stopwatch time to localStorage
   useEffect(() => {
-    const progressData = { xp, level, skills };
-    localStorage.setItem("progressData", JSON.stringify(progressData));
-    localStorage.setItem("stopwatchTime", millisecondsElapsed.toString());
-  }, [xp, level, skills, millisecondsElapsed]);
+    const saveProgress = () => {
+      try {
+        const progressData = {
+          xp,
+          level,
+          skills,
+          hours,
+          skillPoints,
+          millisecondsElapsed,
+        };
+        localStorage.setItem("progressData", JSON.stringify(progressData));
+      } catch (error) {
+        console.error("Failed to save progress:", error);
+      }
+    };
+
+    const debounceSave = setTimeout(saveProgress, 2000);
+
+    return () => clearTimeout(debounceSave); // avoid excessive calls
+  }, [xp, level, skills, millisecondsElapsed, hours, skillPoints]);
 
   const improveSubSkill = (category, subSkillIndex) => {
     if (skillPoints > 0) {
